@@ -15,6 +15,6 @@ phases:
     commands:
       - docker push 884030823485.dkr.ecr.ap-northeast-1.amazonaws.com/hellodelvinpoulo:latest
       - echo Writing image definitions file...
-      - printf '[{"name":"hello-world","imageUri":"%s"}]' 884030823485.dkr.ecr.ap-northeast-1.amazonaws.com/hellodelvinpoulo:latest > imagedefinitions.json
+      - printf '[{"name":"Chat-gtp","imageUri":"%s"}]' 884030823485.dkr.ecr.ap-northeast-1.amazonaws.com/hellodelvinpoulo:latest > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
