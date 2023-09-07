@@ -1,19 +1,16 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      java: corretto11
   pre_build:
     commands:
-      - echo Nothing to do in the pre_build phase...
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
   build:
     commands:
-      - echo Build started on `date`
-      - mvn install
+      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 884030823485.dkr.ecr.ap-northeast-1.amazonaws.com
+      - docker build -t hellodelvinpoulo .
+      - docker tag hellodelvinpoulo:latest 884030823485.dkr.ecr.ap-northeast-1.amazonaws.com/hellodelvinpoulo:latest
+
   post_build:
     commands:
-      - echo Build completed on `date`
-artifacts:
-  files:
-    - target/messageUtil-1.0.jar
+      - docker push 884030823485.dkr.ecr.ap-northeast-1.amazonaws.com/hellodelvinpoulo:latest
